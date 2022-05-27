@@ -13,7 +13,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.word.word_list);
   return (
-    <div>
+    <>
       <Container>
         {data.map((v) => {
           return v.is_check ? (
@@ -55,7 +55,7 @@ const Home = () => {
                   color="#3399FF"
                   cursor="pointer"
                 ></BsPencilSquare>
-                <BsXLg size="23" color="#3399FF" cursor="pointer"></BsXLg>
+                <BsXLg size="23" color="#3399FF" cursor="pointer" onClick={()=> dispatch(deleteWordFB(v.id))}></BsXLg>
               </Button>
               <h2>{v.word}</h2>
               <p>{v.mean}</p>
@@ -76,27 +76,27 @@ const Home = () => {
           }}
         />
       </Fab>
-    </div>
+    </>
   );
 };
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  margin: 10px 20px;
+  gap:20px;
+  justify-content: space-evenly;
+  padding: 30px 0;
+  width: 100%;
+  margin: auto
 `;
 
 const Button = styled.div`
   position: absolute;
   top: 15px;
   right: 15px;
-  /* display: flex;
-  align-items: center;
-   */
 `;
 const Card = styled.article`
-  width: 400px;
+  flex-basis: 400px;
   height: 180px;
   border-radius: 10px;
   border: 2px solid #3399ff;
@@ -105,6 +105,10 @@ const Card = styled.article`
   position: relative;
   background-color: ${(props) => (props.check ? "#3399ff" : "")};
   color: ${(props) => (props.check ? "white" : "black")};
+  transition: box-shadow 300ms ease-in-out;
+  :hover{
+    box-shadow: rgb(0 0 0 / 80%) 0px 5px 15px 0px;
+  }
 `;
 
 export default Home;
