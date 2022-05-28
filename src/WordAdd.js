@@ -17,6 +17,7 @@ const WordAdd = () => {
     const meanvalue = mean.current.value;
     const examplevalue = example.current.value;
     const translationvalue = translation.current.value;
+    const date = new Date().getTime()
     if (
       wordvalue === "" ||
       meanvalue === "" ||
@@ -31,7 +32,8 @@ const WordAdd = () => {
           mean: meanvalue,
           example: examplevalue,
           translation: translationvalue,
-          is_check: false
+          is_check: false,
+          date:date
         })
       );
       history.goBack();
@@ -40,7 +42,7 @@ const WordAdd = () => {
 
   return (
     <Container>
-      <div style={{color:'#0000FF', fontSize:'large'}}>단어 추가하기</div>
+      <div style={{color:'#0000FF', fontSize:'2rem'}}>단어 추가하기</div>
       <Input>
         <label for="input-word">단어</label>
         <input ref={word} id="input-word"></input>
@@ -68,12 +70,15 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+  font-family: 'Dongle';
+  
 `;
 const Input = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px 0;
   color: #0080FF;
+  font-size: 1.5rem;
 
   input {
     width: 400px;
@@ -92,8 +97,9 @@ const Button = styled.button`
   background-color: #000099;
   color: white;
   margin: 20px;
-  font-size: large;
+  font-size: 2rem;
   border: none;
   cursor: pointer;
+  font-family: 'Dongle';
 `;
 export default WordAdd;

@@ -49,7 +49,8 @@ const WordUpdate = () => {
           mean: meanvalue,
           example: examplevalue,
           translation: translationvalue,
-          is_check : data[0].is_check
+          is_check : data[0].is_check,
+          date: data[0].date
         })
       );
       history.goBack();
@@ -57,7 +58,7 @@ const WordUpdate = () => {
   };
   return (
     <Container>
-      <div style={{ color: "#0000FF", fontSize: "large" }}>단어 수정하기</div>
+      <div style={{ color: "#0000FF", fontSize:'2rem' }}>단어 수정하기</div>
       <Input>
         <label for="input-word">단어</label>
         <input name = 'word' ref={word} id="input-word" value={inputs.word} onChange={onChange}></input>
@@ -91,12 +92,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+  font-family: 'Dongle';
 `;
 const Input = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px 0;
   color: #0080ff;
+  font-size: 1.5rem;
 
   input {
     width: 400px;
@@ -115,9 +118,10 @@ const Button = styled.button`
   background-color: #000099;
   color: white;
   margin: 20px;
-  font-size: large;
+  font-size: 2rem;
   border: none;
   cursor: pointer;
+  font-family: 'Dongle';
 `;
 
 export default WordUpdate;

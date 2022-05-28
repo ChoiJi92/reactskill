@@ -8,6 +8,7 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  orderBy,
 } from "firebase/firestore";
 import { async } from "@firebase/util";
 
@@ -44,24 +45,21 @@ export function checkWord(word){
 // middlewares
 export const loadWordFB = () => {
   return async function(dispatch) {
-    const bucket_data = await getDocs(collection(db, 'word'));
+    const word_data = await getDocs(collection(db, 'word'));
       let word_list= [];
-
-      bucket_data.forEach((doc) => {
+      word_data.forEach((doc) => {
         word_list.push({id:doc.id, ...doc.data()})
       })
-      
+      console.log(word_list)
       dispatch(loadWord(word_list))
   }
 }
 export const addWordFB = (word) => {
   return async function(dispatch) {
-      // dispatch(loadedBucket(false))
       const docRef = await addDoc(collection(db,'word'), word)
       const wordlist = await getDoc(docRef)
       const word_data = {id: wordlist.id, ...wordlist.data()}
       dispatch(createWord(word_data))
-      // console.log((await getDoc(docRef)).data())
   }
 }
 export const updateWordFB = (word) => {

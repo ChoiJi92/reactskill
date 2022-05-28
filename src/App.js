@@ -3,20 +3,22 @@ import Home from "./Home";
 import WordAdd from "./WordAdd";
 import WordUpdate from "./WordUpdate";
 import styled from "styled-components";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadWordFB } from "./redux/modules/word";
+import GlobalFonts from './fonts/fonts'
 
 function App() {
   const dispatch = useDispatch()
-
+  const history = useHistory()
   useEffect( async ()=>{
       await dispatch(loadWordFB())
   },[])
 
   return (
     <div className="App">
-      <Container>영어 단어장</Container>
+      <GlobalFonts/>
+      <Container onClick={() => {history.push('/')}}>영어 단어장</Container>
       <Switch>
         <Route path= '/' exact>
           <Home />
@@ -35,12 +37,14 @@ function App() {
 const Container = styled.div`
   border-bottom: 2px solid #CCE5FF;
   color: black;
-  font-size: x-large;
+  font-size: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 80px;
+  cursor: pointer;
+  font-family: 'Dongle';
 `;
 
 export default App;
