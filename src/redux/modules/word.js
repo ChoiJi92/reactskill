@@ -9,8 +9,10 @@ import {
   updateDoc,
   deleteDoc,
   orderBy,
+  limit,
+  query
 } from "firebase/firestore";
-import { async } from "@firebase/util";
+
 
 // Actions
 const LOAD = "word/LOAD";
@@ -45,12 +47,14 @@ export function checkWord(word){
 // middlewares
 export const loadWordFB = () => {
   return async function(dispatch) {
-    const word_data = await getDocs(collection(db, 'word'));
-      let word_list= [];
+    const q = query(collection(db, "word"),orderBy('date','desc')) // date 기준 내림차순 정렬!!
+    // const word_data = getDocs(collection(db, 'word'));
+    const word_data = await getDocs(q);
+    
+    let word_list= [];
       word_data.forEach((doc) => {
         word_list.push({id:doc.id, ...doc.data()})
       })
-      console.log(word_list)
       dispatch(loadWord(word_list))
   }
 }
