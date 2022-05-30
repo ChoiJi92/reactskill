@@ -44,19 +44,19 @@ const WordAdd = () => {
     <Container>
       <div style={{color:'#0000FF', fontSize:'2rem'}}>단어 추가하기</div>
       <Input>
-        <label for="input-word">단어</label>
+        <label htmlFor="input-word">단어</label>
         <input ref={word} id="input-word"></input>
       </Input>
       <Input>
-        <label for="input-mean">의미</label>
+        <label htmlFor="input-mean">의미</label>
         <input ref={mean} id="input-mean"></input>
       </Input>
       <Input>
-        <label for="input-example">예문</label>
+        <label htmlFor="input-example">예문</label>
         <input ref={example} id="input-example"></input>
       </Input>
       <Input>
-        <label for="input-translation">해석</label>
+        <label htmlFor="input-translation">해석</label>
         <input ref={translation} id="input-translation"></input>
       </Input>
       <Button onClick={wordadd}>저장하기</Button>

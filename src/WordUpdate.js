@@ -12,15 +12,16 @@ const WordUpdate = () => {
   const data = useSelector((state) => state.word.word_list).filter(
     (v) => v.id === params.id
   );
+  console.log(data)
   const word = React.useRef();
   const mean = React.useRef();
   const example = React.useRef();
   const translation = React.useRef();
   const [inputs,setInputs] = React.useState({
-      word:data[0].word,
-      mean:data[0].mean,
-      example:data[0].example,
-      translation:data[0].translation
+      word:data[0]?.word,             // 옵셔널 체이닝 data[0]이 존재하지 않더라도 에러가 발생하지않고 word:undefined를 반환!
+      mean:data[0]?.mean,
+      example:data[0]?.example,
+      translation:data[0]?.translation
   })
   const onChange = (e) => {
       const {value, name} = e.target
@@ -60,19 +61,19 @@ const WordUpdate = () => {
     <Container>
       <div style={{ color: "#0000FF", fontSize:'2rem' }}>단어 수정하기</div>
       <Input>
-        <label for="input-word">단어</label>
+        <label htmlFor="input-word">단어</label>
         <input name = 'word' ref={word} id="input-word" value={inputs.word} onChange={onChange}></input>
       </Input>
       <Input>
-        <label for="input-mean">의미</label>
+        <label htmlFor="input-mean">의미</label>
         <input name ='mean' ref={mean} id="input-mean" value={inputs.mean} onChange={onChange}></input>
       </Input>
       <Input>
-        <label for="input-example">예문</label>
+        <label htmlFor="input-example">예문</label>
         <input name ='example' ref={example} id="input-example" value={inputs.example} onChange={onChange}></input>
       </Input>
       <Input>
-        <label for="input-translation">해석</label>
+        <label htmlFor="input-translation">해석</label>
         <input
             name ='translation'
           ref={translation}
