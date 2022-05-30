@@ -58,7 +58,7 @@ export const loadWordFB = () => {
     // const word_data = getDocs(collection(db, 'word'));
     const word_data = await getDocs(q);
     let word_list = [];
-    let lastdate = 0;
+    let lastdate ;
     word_data.forEach((doc) => {
       lastdate = doc.data().date;
       word_list.push({ id: doc.id, ...doc.data() });
@@ -76,7 +76,7 @@ export const moreloadWordFB = (lastdate) => {
     );
     const word_data = await getDocs(q);
     let word_list = [];
-    let lastDate = 0;
+    let lastDate ;
     word_data.forEach((doc) => {
       lastDate = doc.data().date;
       word_list.push({ id: doc.id, ...doc.data()});

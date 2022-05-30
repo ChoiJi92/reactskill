@@ -7,14 +7,20 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadWordFB } from "./redux/modules/word";
 import GlobalFonts from './fonts/fonts'
+import { async } from "@firebase/util";
 
 function App() {
   const dispatch = useDispatch()
   const history = useHistory()
-  useEffect( async ()=>{
+  useEffect(() => {
+    async function load(){
       await dispatch(loadWordFB())
+    }
+    load()
   },[])
-
+  // useEffect( async () => {
+  //     await dispatch(loadWordFB())
+  // },[])
   return (
     <div className="App">
       <GlobalFonts/>
