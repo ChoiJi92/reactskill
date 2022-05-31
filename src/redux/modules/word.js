@@ -108,6 +108,7 @@ export const addWordFB = (word) => {
 export const updateWordFB = (word) => {
   return async function (dispatch, getState) {
     const docRef = doc(db, "word", word.id);
+    console.log(docRef)
     await updateDoc(docRef, word);
     const word_list = getState().word.word_list;
     const new_word = word_list.map((v) => (v.id === word.id ? (v = word) : v));

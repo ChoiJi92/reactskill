@@ -12,6 +12,7 @@ const WordUpdate = () => {
   const data = useSelector((state) => state.word.word_list).filter(
     (v) => v.id === params.id
   );
+  console.log(data)
   const word = React.useRef();
   const mean = React.useRef();
   const example = React.useRef();

@@ -17,6 +17,7 @@ const Home = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.word.word_list);
+  console.log(data)
   const lastdate = useSelector((state) => state.word.lastdate); // date를 기준으로 정렬해서 가져오기때문에 마지막 요소의 date를 알아야함
   const [target, setTarget] = useState(null);
   // 무한스크롤 관련 intersection observer
