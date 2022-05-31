@@ -5,7 +5,7 @@ import WordUpdate from "./WordUpdate";
 import styled from "styled-components";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadWordFB } from "./redux/modules/word";
+import { clearWord, loadWordFB } from "./redux/modules/word";
 import GlobalFonts from './fonts/fonts'
 import { async } from "@firebase/util";
 
@@ -15,16 +15,24 @@ function App() {
   useEffect(() => {
     async function load(){
       await dispatch(loadWordFB())
+      return ()=> {
+        dispatch(clearWord())
+      }
     }
     load()
-  },[])
+  },[dispatch])
   // useEffect( async () => {
   //     await dispatch(loadWordFB())
-  // },[])
+      
+  //     return ()=>{
+  //       dispatch(clearWord())
+  //     }
+  // },[dispatch])
   return (
     <div className="App">
       <GlobalFonts/>
       <Container onClick={() => {history.push('/')}}>영어 단어장</Container>
+      
       <Switch>
         <Route path= '/' exact>
           <Home />
@@ -36,6 +44,7 @@ function App() {
           <WordUpdate/>
         </Route>
       </Switch>
+      
     </div>
   );
 }

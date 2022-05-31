@@ -22,11 +22,13 @@ const CREATE = "word/CREATE";
 const UPDATE = "word/UPDATE";
 const DELETE = "word/DELETE";
 const CHECK = "word/CHECK";
-
+const ERROR = 'word/ERROR';
+const CLEAR = 'word/CLEAR';
 
 const initialState = {
   word_list: [],
   lastdate: 0,
+  error: null
 };
 
 // Action Creators
@@ -50,10 +52,17 @@ export function deleteWord(word) {
 export function checkWord(word) {
   return { type: CHECK, word };
 }
+export function errorWord(error) {
+  return { type: ERROR, error };
+}
+export function clearWord() {
+  return { type: CLEAR};
+}
 
 // middlewares
 export const loadWordFB = () => {
   return async function (dispatch) {
+    try{
     const q = query(collection(db, "word"), orderBy("date", "desc"), limit(10)); // date 기준 내림차순 정렬!!
     // const word_data = getDocs(collection(db, 'word'));
     const word_data = await getDocs(q);
@@ -64,6 +73,10 @@ export const loadWordFB = () => {
       word_list.push({ id: doc.id, ...doc.data() });
     });
     dispatch(loadWord(word_list, lastdate));
+  }
+  catch(error){
+    dispatch(errorWord(error))
+  }
   };
 };
 export const moreloadWordFB = (lastdate) => {
@@ -133,7 +146,7 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state ,word_list: more_word_list, lastdate:action.lastdate };
     }
     case "word/CREATE": {
-      const new_word_list = [...state.word_list, action.word];
+      const new_word_list = [action.word, ...state.word_list];
       return { ...state, word_list: new_word_list };
     }
     case "word/UPDATE": {
@@ -144,6 +157,18 @@ export default function reducer(state = initialState, action = {}) {
     }
     case "word/DELETE": {
       return { ...state, word_list: action.word };
+    }
+    case 'word/ERROR' : {
+      return{
+        ...state,
+        error: action.error
+      }
+    }
+    case 'word/CLEAR' :{
+      return{
+        ...state,
+        word_list:[]
+      }
     }
     // do reducer stuff
     default:
