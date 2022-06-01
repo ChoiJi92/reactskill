@@ -12,11 +12,11 @@ import { async } from "@firebase/util";
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     async function load() {
       await dispatch(loadWordFB());
-      setIsLoaded(false);
+      setIsLoaded(true);
       return () => {
         dispatch(clearWord());
         // setIsLoaded(true)
@@ -43,14 +43,13 @@ function App() {
       </Container>
       <Switch>
         <Route path="/" exact>
-          {!isLoaded && <Home />}
+          {isLoaded && <Home />}
         </Route>
-
         <Route path="/word/add" exact>
           <WordAdd />
         </Route>
         <Route path="/word/:id/edit" exact>
-          {!isLoaded && <WordUpdate />}
+          {isLoaded && <WordUpdate />}
         </Route>
       </Switch>
     </div>
