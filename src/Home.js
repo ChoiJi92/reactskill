@@ -13,6 +13,7 @@ import { ImCheckmark, ImCheckmark2 } from "react-icons/im";
 import { BsPencilSquare, BsXLg } from "react-icons/bs";
 
 const Home = () => {
+  
   const history = useHistory();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.word.word_list);
@@ -39,7 +40,7 @@ const Home = () => {
     };
   }, [target]);
   return (
-    <div>
+    <Cardlist>
       <Container>
         {data.map((v, i) => {
           return v.is_check ? (
@@ -127,17 +128,28 @@ const Home = () => {
           }}
         />
       </Fab>
-    </div>
+    </Cardlist>
   );
 };
+const Cardlist = styled.div`
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* flex-wrap: wrap; */
+  /* justify-content: center; */
+  /* padding: 20px 0; */
+  /* width: 100%; */
+  /* margin: 0 auto; */
+`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
-  justify-content: center;
-  padding: 20px 0;
-  width: 100%;
+  justify-content: flex-start;
+  width: 90%;
+  margin: 0 auto;
+  padding: 30px 0;
+  /* background-color: red; */
 `;
 
 const Button = styled.div`
@@ -148,11 +160,14 @@ const Button = styled.div`
 
 const Card = styled.article`
   font-size: 1.3rem;
-  flex-basis: 400px;
+  width: 100%;
+  @media screen and (min-width: 1024px){
+  width: calc((100% - (32.5px*5)) / 3);
+  }
   border-radius: 10px;
   border: 2px solid #3399ff;
   padding: 20px;
-  margin: 10px;
+  /* margin: 10px; */
   position: relative;
   background-color: ${(props) => (props.check ? "#3399ff" : "")};
   color: ${(props) => (props.check ? "white" : "black")};
@@ -161,6 +176,6 @@ const Card = styled.article`
   :hover {
     box-shadow: rgb(0 0 0 / 80%) 0px 5px 15px 0px;
   }
-`;
+`
 
 export default Home;
